@@ -62,13 +62,33 @@ while running:
             running = False
     if gamecontry == 0:
         screen.fill((38, 250, 49))
-        title_txt = font.render("funfunfunfunfunfun", True, (250, 250, 250))
-        screen.blit(title_txt, (450, 100))
+        title_txt = font.render("lawnmowing sim", True, (250, 250, 250))
+        screen.blit(title_txt, (425, 100))
+
 
         startbutton =button(450,300,250,150, "start")
+
         startbutton.draw(screen, (250,0,100))
 
-    if gamecontry == 1:
+        if startbutton.get_pressed():
+                gamecontry = 1
+    elif gamecontry == -1:
+        screen.fill((50, 5, 5))
+        title_txt = font.render("u died", True, (250, 250, 250))
+        screen.blit(title_txt, (500, 100))
+
+        restartbutton = button(450, 300, 250, 150, "restart")
+
+        restartbutton.draw(screen, (250, 0, 100))
+        if startbutton.get_pressed():
+                gamecontry = 1
+                lives =3
+                gp = 120
+                score = 0
+
+
+
+    elif gamecontry == 1:
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
             pos_x -= speed
@@ -136,6 +156,9 @@ while running:
                  enimy[1] += random.randint(-1, 1)
              elif (pos_y - enimy[1]) !=0:
                  enimy[1] += enimiespeed*(pos_y - enimy[1]) / abs(pos_y - enimy[1])
+        if lives <= 0:
+            gamecontry = -1
+
 
 
         screen.fill((38, 250, 49))
